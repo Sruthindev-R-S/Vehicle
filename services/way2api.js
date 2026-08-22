@@ -24,15 +24,8 @@ async function getData(vehicle_no)
 
         const result = responseJson.data.result;
         console.log(result);
-        const insurance_upto = result.insurance_upto;
-        const policy_number = result.insurance_policy_number;
-        const policy_company = result.insurance_company;
-        const insurance_data={
-            insurance_upto,
-            policy_number,
-            policy_company
-        }
-        return insurance_data;
+        
+        return result;
 
     }
     catch (error) {
