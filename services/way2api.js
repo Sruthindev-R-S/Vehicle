@@ -32,5 +32,6 @@ async function getData(vehicle_no)
         console.error('Error making API request:', error);
         throw error;
     }
-} 
-module.exports = getData;
+}
+
+module.exports = { getData };
