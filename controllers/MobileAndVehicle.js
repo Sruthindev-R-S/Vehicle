@@ -1,8 +1,5 @@
-const {
-    findVehicleData,
-    insertVehicleData,
-} = require('../../services/supabase');
-const { getData } = require('../../services/way2api');
+const VehicleService = require('../services/VehicleService');
+const { getData } = require('../config/way2api');
 
 const dataHandeler = async (req, res) => {
   try {
@@ -12,14 +9,14 @@ const dataHandeler = async (req, res) => {
       return res.status(400).json({ error: 'vehicle_number is required.' });
     }
 
-    const storedVehicle = await findVehicleData(vehicle_number);
+    const storedVehicle = await VehicleService.getVehicleByNumber(vehicle_number);
     if (storedVehicle) {
       
       return res.status(200).send("Data alredy exist");
     }
 
     const data = await getData(vehicle_number);
-    const insertedVehicle = await insertVehicleData(
+    await VehicleService.createVehicle(
       vehicle_number,
       mobile_number,
       data

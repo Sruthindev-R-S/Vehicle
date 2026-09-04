@@ -1,5 +1,5 @@
-const { getData } = require('../../services/way2api')
-const { findVehicleData, insertVehicleData } = require('../../services/supabase');
+const { getData } = require('../config/way2api')
+const VehicleService = require('../services/VehicleService');
 
 
 const extractRcNumber = (req) => {
@@ -18,7 +18,6 @@ const extractRcNumber = (req) => {
   );
 };
 
-// Main handler for vehicle queries
 const handleVehicleQuery = async (req, res) => {
   try {
     const rcNumber = extractRcNumber(req);
@@ -27,18 +26,25 @@ const handleVehicleQuery = async (req, res) => {
       return res.status(400).json({ error: 'Vehicle registration number is required.' });
     }
 
-    const storedVehicle = await findVehicleData(rcNumber);
+    const storedVehicle = await VehicleService.getVehicleByNumber(rcNumber);
     if (storedVehicle) {
       return res.status(200).json(storedVehicle.data);
     }
 
     const vehicleData = await getData(rcNumber);
-    await insertVehicleData(
+    res.status(200).json(vehicleData);
+    try{
+      await VehicleService.createVehicle(
       rcNumber,
       req.body?.mobile_number || req.body?.phone_number|| "000",
       vehicleData
     );
-    return res.status(200).json(vehicleData);
+    }
+    catch(error){
+      console.error("Database Insertion failed:",error)
+    }
+    
+    
   } catch (error) {
     console.error("Error handling vehicle query:", error);
     return res.status(500).json({ error: "Failed to fetch vehicle information." });
