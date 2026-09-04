@@ -16,7 +16,7 @@ const EmployeeModel={
     async find(){
         const {data,error}= await supabase
         .from("employee")
-        .select("Name,Phone_number");
+        .select("Name,Phone_number,Id");
         if(error)
             throw error;
         return data;
