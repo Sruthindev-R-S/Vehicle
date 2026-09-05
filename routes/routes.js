@@ -7,15 +7,22 @@ const {deleteEmployee} =require('../controllers/deleteEmployee')
 const {getVehicle}=require("../controllers/getVehicle")
 const { updateVehicle } = require('../controllers/updateVehicle');
 const { updateAction } = require('../controllers/updateAction');
+const {loginHandler}=require("../controllers/login")
+const {registerHandler}=require("../controllers/register")
+const {authenticateToken} = require('../middleware/authMiddleWare')
 
 
-router.get('/get', handleVehicleQuery);
-router.post('/data',dataHandeler);
-router.get('/getEmployee',employeeHandler)
-router.post('/addEmployee',addEmployee)
-router.delete('/deleteEmployee',deleteEmployee)
-router.get('/getVehicle',getVehicle)
-router.patch('/updateVehicle', updateVehicle)
-router.patch('/updateAction', updateAction)
+router.post("/login",loginHandler)
+router.post("/register",registerHandler)
+router.get('/get', authenticateToken, handleVehicleQuery);
+router.post('/data', authenticateToken, dataHandeler);
+router.get('/getEmployee', authenticateToken, employeeHandler)
+router.post('/addEmployee', authenticateToken, addEmployee)
+router.delete('/deleteEmployee', authenticateToken, deleteEmployee)
+router.get('/getVehicle', authenticateToken, getVehicle)
+router.patch('/updateVehicle', authenticateToken, updateVehicle)
+router.patch('/updateAction', authenticateToken, updateAction)
+
+
 
 module.exports = router
