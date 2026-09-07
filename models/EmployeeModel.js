@@ -6,9 +6,10 @@ const EmployeeModel={
         .from("employee")
         .insert({
             Name:name,
-            Phone_number:phone_number
+            Phone_number:phone_number,
+            status:false
         })
-        .select();
+        .select("Name,Phone_number,Id");
         if(error)
             throw error;
         return data
@@ -17,6 +18,17 @@ const EmployeeModel={
         const {data,error}= await supabase
         .from("employee")
         .select("Name,Phone_number,Id");
+        if(error)
+            throw error;
+        return data;
+    },
+    async updateAccess(id, status){
+        const {data,error}= await supabase
+        .from("employee")
+        .update({ status })
+        .eq("Id", id)
+        .select("Name,Phone_number")
+        .maybeSingle();
         if(error)
             throw error;
         return data;

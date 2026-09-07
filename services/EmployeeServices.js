@@ -7,6 +7,9 @@ const EmployeeServices = {
     async getEmployee(){
         return EmployeeModel.find()
     },
+    async updateEmployeeAccess(id, status){
+        return EmployeeModel.updateAccess(id, status)
+    },
     async deleteEmployee(phone_number){
         return EmployeeModel.delete(phone_number)
     }
