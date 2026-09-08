@@ -1,4 +1,5 @@
 const EmployeeService = require('../services/EmployeeServices');
+const { generateToken } = require('../utils/security/jwt');
 
 const addEmployee = async (req, res) => {
     const { name, phone_number } = req.body || {};
@@ -11,7 +12,17 @@ const addEmployee = async (req, res) => {
 
     try {
         const employee = await EmployeeService.addEmployee(name, phone_number);
-        return res.status(201).json(employee);
+        const createdEmployee = employee?.[0] || employee;
+        const token = generateToken({
+            name: createdEmployee?.Name || name,
+            role: 'employee',
+            phone_number: createdEmployee?.Phone_number || phone_number,
+        });
+
+        return res.status(201).json({
+            employee,
+            token,
+        });
     } catch (error) {
         console.error('Error adding employee:', error);
         return res.status(500).json({ error: 'Failed to add employee.' });

@@ -3,20 +3,18 @@ const EmployeeService = require('../services/EmployeeServices');
 const updateEmployeeAccess = async (req, res) => {
     const { employee_id, status } = req.body || {};
 
-    if (req.user?.role !== 'owner') {
-        return res.status(403).json({ error: 'Owner access required.' });
-    }
 
-    if (employee_id === undefined || typeof status !== 'boolean') {
+    if (employee_id === undefined || (typeof status !== 'boolean' && typeof status !== 'number')) {
         return res.status(400).json({
-            error: 'employee_id and boolean status are required.',
+            error: 'employee_id and valid status (boolean or number) are required.',
         });
     }
 
     try {
+        const normalizedStatus = typeof status === 'boolean' ? (status ? 1 : 2) : Number(status);
         const employee = await EmployeeService.updateEmployeeAccess(
             employee_id,
-            status
+            normalizedStatus
         );
 
         if (!employee) {

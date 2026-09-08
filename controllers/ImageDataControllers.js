@@ -11,16 +11,16 @@ const getImageData = async (req, res) => {
 };
 
 const updateImageDataStatus = async (req, res) => {
-    const { vehicle_number } = req.body || {};
+    const { vehicle_number, id, old_vehicle_number } = req.body || {};
 
-    if (!vehicle_number) {
-        return res.status(400).json({ error: 'vehicle_number is required.' });
+    if (!vehicle_number && !id) {
+        return res.status(400).json({ error: 'vehicle_number or id is required.' });
     }
 
     try {
-        const imageData = await ImageDataServices.updateImageDataStatus(vehicle_number);
+        const imageData = await ImageDataServices.updateImageDataStatus(vehicle_number, id, old_vehicle_number);
 
-        if (!imageData.length) {
+        if (!imageData || !imageData.length) {
             return res.status(404).json({ error: 'Image data not found.' });
         }
 

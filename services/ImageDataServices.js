@@ -5,8 +5,8 @@ const ImageDataServices = {
 		return ImageDataModel.find();
 	},
 
-	async updateImageDataStatus(vehicleNumber) {
-		return ImageDataModel.updateStatus(vehicleNumber);
+	async updateImageDataStatus(vehicleNumber, id, old_vehicle_number) {
+		return ImageDataModel.updateStatus(vehicleNumber, id, old_vehicle_number);
 	},
 
 	async addImageData(url, vehicleNumber,phone_number) {

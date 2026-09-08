@@ -7,7 +7,6 @@ const EmployeeModel={
         .insert({
             Name:name,
             Phone_number:phone_number,
-            status:false
         })
         .select("Name,Phone_number,Id");
         if(error)
@@ -17,7 +16,7 @@ const EmployeeModel={
     async find(){
         const {data,error}= await supabase
         .from("employee")
-        .select("Name,Phone_number,Id");
+        .select("Name,Phone_number,Id,status");
         if(error)
             throw error;
         return data;
@@ -27,7 +26,7 @@ const EmployeeModel={
         .from("employee")
         .update({ status })
         .eq("Id", id)
-        .select("Name,Phone_number")
+        .select("Name,Phone_number,Id,status")
         .maybeSingle();
         if(error)
             throw error;

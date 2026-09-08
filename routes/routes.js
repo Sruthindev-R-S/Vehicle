@@ -20,21 +20,20 @@ const upload = multer({
 });
 
 
-router.post("/login",loginHandler)
-router.post("/register",registerHandler)
-router.get('/get', authenticateToken, handleVehicleQuery);
-router.post('/data', authenticateToken, dataHandeler);
-router.get('/getEmployee', authenticateToken, employeeHandler)
-router.post('/registerEmployee', authenticateToken, addEmployee)
-router.patch('/employee/access', authenticateToken, updateEmployeeAccess)
-router.post('/addEmployee', authenticateToken, addEmployee)
-router.delete('/deleteEmployee', authenticateToken, deleteEmployee)
-router.get('/getVehicle', authenticateToken, getVehicle)
-router.patch('/updateVehicle', authenticateToken, updateVehicle)
-router.patch('/updateAction', authenticateToken, updateAction)
-router.get('/image-data', authenticateToken, getImageData)
-router.patch('/image-data/status', authenticateToken, updateImageDataStatus)
-router.post('/registerData', upload.single('image'), Imagehandler)
+router.post("/dashboard/login",loginHandler)
+router.post("/dashboard/register",registerHandler)
+router.get('/Employee/get',  handleVehicleQuery);
+router.post('/Employee/data',  dataHandeler);
+router.get('/dashboard/getEmployee', employeeHandler)//add authentication
+router.post('/Employee/registerEmployee', addEmployee)
+router.patch('/dashboard/access', updateEmployeeAccess)//add authentication
+router.delete('/dashboard/deleteEmployee', deleteEmployee)
+router.get('/dashboard/getVehicle',  getVehicle)
+router.patch('/dashboard/updateVehicle', updateVehicle)
+router.patch('/dashboard/updateAction',updateAction)
+router.get('/dashboard/image-data',  getImageData)
+router.patch('/dashboard/image-data/status',updateImageDataStatus)
+router.post('/Employee/registerData', upload.single('image'), Imagehandler)
 
 
 module.exports = router
