@@ -36,14 +36,14 @@ const ImageDataModel = {
 
         return data
     },
-    async add(url,vehicle_number,phone_number,name){
+    async add(url,vehicle_number,phone_number,created_by){
         const {data,error} = await supabase
         .from("image-data")
         .insert({
             "image-url": url,
             "vehicle_number":vehicle_number,
             "phone_number":phone_number,
-            "name":name
+            "created_by":created_by
         })
         .select()
         if(error){
