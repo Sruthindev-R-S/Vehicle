@@ -28,7 +28,7 @@ const ImageDataModel = {
             query = query.eq("vehicle_number", vehicle_number)
         }
 
-        const {data,error} = await query.select('id,"image-url",vehicle_number,phone_number,status')
+        const {data,error} = await query.select('*')
 
         if(error){
             throw new Error(error.message)
