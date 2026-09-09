@@ -1,8 +1,8 @@
 const { VehicleModel } = require('../models/VehicleModel');
 
 const VehicleService = {
-  async createVehicle(vehicleNumber, mobileNumber, data) {
-    return VehicleModel.create(vehicleNumber, mobileNumber, data);
+  async createVehicle(vehicleNumber, mobileNumber, data, createdBy) {
+    return VehicleModel.create(vehicleNumber, mobileNumber, data, createdBy);
   },
 
   async getVehicles() {

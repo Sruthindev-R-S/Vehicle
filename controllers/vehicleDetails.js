@@ -21,6 +21,7 @@ const extractRcNumber = (req) => {
 const handleVehicleQuery = async (req, res) => {
   try {
     const rcNumber = extractRcNumber(req);
+    const created_by = req.body;
 
     if (!rcNumber) {
       return res.status(400).json({ error: 'Vehicle registration number is required.' });
@@ -38,7 +39,8 @@ const handleVehicleQuery = async (req, res) => {
       rcNumber,
       req.body?.mobile_number || req.body?.phone_number|| "000",
       vehicleData,
-      req.body?.name||"name"
+      req.body?.name||"name".
+      created_by
     );
     }
     catch(error){

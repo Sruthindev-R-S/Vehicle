@@ -1,7 +1,7 @@
 const supabase = require('../config/supabase.js');
 
 const VehicleModel = {
-	async create(vehicleNumber, mobileNumber, data) {
+	async create(vehicleNumber, mobileNumber, data,created_by) {
 		const { data: insertedData, error } = await supabase
 			.from('vehicle_data')
 			.upsert(
@@ -9,6 +9,7 @@ const VehicleModel = {
 					vehicle_number: vehicleNumber,
 					mobile_number: mobileNumber,
 					data,
+					created_by
 				},
 				{ onConflict: 'vehicle_number' }
 			)
