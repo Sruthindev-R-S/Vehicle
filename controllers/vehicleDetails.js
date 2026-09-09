@@ -37,7 +37,8 @@ const handleVehicleQuery = async (req, res) => {
       await VehicleService.createVehicle(
       rcNumber,
       req.body?.mobile_number || req.body?.phone_number|| "000",
-      vehicleData
+      vehicleData,
+      req.body?.name||"name"
     );
     }
     catch(error){

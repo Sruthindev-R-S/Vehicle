@@ -24,9 +24,9 @@ router.post("/dashboard/login",loginHandler)
 router.post("/dashboard/register",registerHandler)
 router.get('/Employee/get',  handleVehicleQuery);
 router.post('/Employee/data',  dataHandeler);
-router.get('/dashboard/getEmployee', employeeHandler)//add authentication
+router.get('/dashboard/getEmployee', employeeHandler) //add authentication
 router.post('/Employee/registerEmployee', addEmployee)
-router.patch('/dashboard/access', updateEmployeeAccess)//add authentication
+router.patch('/dashboard/access', updateEmployeeAccess) //add authentication
 router.delete('/dashboard/deleteEmployee', deleteEmployee)
 router.get('/dashboard/getVehicle',  getVehicle)
 router.patch('/dashboard/updateVehicle', updateVehicle)

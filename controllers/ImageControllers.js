@@ -6,6 +6,7 @@ async function Imagehandler(req,res) {
     try{
         const file = req.file;
         const phone_number = req.body;
+        const name = req.body;
         if(!file)
         {
             return res.status(400).json({ error: "Upload image not found" });
@@ -13,7 +14,7 @@ async function Imagehandler(req,res) {
 
         const url = await ImageServices.addImage(file);
         const { vehicle_no } = await ExtractNumber(url);
-        const data = await ImageDataModel.add(url, vehicle_no,phone_number);
+        const data = await ImageServices.addImage(url, vehicle_no,phone_number,name);
         const imageData = data[0];
 
         return res.status(201).send("Image uploaded sucessfully")
