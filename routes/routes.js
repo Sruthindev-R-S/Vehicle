@@ -25,15 +25,15 @@ router.post("/dashboard/login",loginHandler)
 router.post("/dashboard/register",registerHandler)
 router.get('/Employee/get',  handleVehicleQuery);
 router.post('/Employee/data',  dataHandeler);
-router.get('/dashboard/getEmployee', employeeHandler) //add authentication
+router.get('/dashboard/getEmployee',authenticateToken, employeeHandler) //add authentication
 router.post('/Employee/registerEmployee', addEmployee)
-router.patch('/dashboard/access', updateEmployeeAccess) //add authentication
-router.delete('/dashboard/deleteEmployee', deleteEmployee)
-router.get('/dashboard/getVehicle',  getVehicle)
-router.patch('/dashboard/updateVehicle', updateVehicle)
-router.patch('/dashboard/updateAction',updateAction)
-router.get('/dashboard/image-data',  getImageData)
-router.patch('/dashboard/image-data/status',updateImageDataStatus)
+router.patch('/dashboard/access',authenticateToken, authenticateToken,updateEmployeeAccess) //add authentication
+router.delete('/dashboard/deleteEmployee',authenticateToken, deleteEmployee)
+router.get('/dashboard/getVehicle', authenticateToken, getVehicle)
+router.patch('/dashboard/updateVehicle', authenticateToken,updateVehicle)
+router.patch('/dashboard/updateAction',authenticateToken,updateAction)
+router.get('/dashboard/image-data', authenticateToken, getImageData)
+router.patch('/dashboard/image-data/status',authenticateToken,updateImageDataStatus)
 router.post('/Employee/registerData', upload.single('image'), Imagehandler)
 
 
